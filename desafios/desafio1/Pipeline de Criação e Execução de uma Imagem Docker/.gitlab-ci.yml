@@ -8,8 +8,10 @@ create:
     - gcp
   script:
     - cd "desafios/desafio1/Pipeline de Criação e Execução de uma Imagem Docker"
+    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
     - docker build -t williamlimasilva/gcp-runner-challenge-alpha:1.0 app/.
     - docker push williamlimasilva/gcp-runner-challenge-alpha:1.0
+    - docker logout
 
 execute:
   stage: deploy
