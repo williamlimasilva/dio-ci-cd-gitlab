@@ -12,7 +12,7 @@ execute-tests:
     - chmod +x /homework space/Sample/.gitlab-ci.yml
   script:
     - echo "Running script.sh..."
-    - /homework space/Sample/.gitlab-ci.yml
+    - bash "/homework space/Sample/script.sh"
   after_script:
     - echo "Tests completed."
 
