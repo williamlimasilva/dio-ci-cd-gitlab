@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+create_images:
+  stage: build
+  tags:
+    - gcp
+  script:
+    - docker build -t williamlimasilva/gcp-runner:1.0 app/.
+    - docker push williamlimasilva/gcp-runner:1.0
+
+execute_images:
+  stage: deploy
+  needs:
+    - create_images
+  tags:
+    - gcp
+  script:
+    - docker run -dti --name web-server -p 80:80 williamlimasilva/gcp-runner:1.0

@@ -1,2 +1,3 @@
 include:
   - local: "homework space/Sample/.gitlab-ci.yml"
+  - local: "homework space/Gitlab GCP Runner/.gitlab-ci.yml"
