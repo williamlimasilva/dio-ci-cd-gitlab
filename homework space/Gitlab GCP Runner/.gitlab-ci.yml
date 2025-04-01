@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+
 create_images:
   stage: build
   tags:
