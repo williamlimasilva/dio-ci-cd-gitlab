@@ -9,6 +9,7 @@ execute-tests:
   stage: test
   before_script:
     - echo "Preparing to run tests..."
+    - chmod +x .gitlab-ci.yml
     - chmod +x /homework space/Sample/.gitlab-ci.yml
   script:
     - echo "Running script.sh..."
