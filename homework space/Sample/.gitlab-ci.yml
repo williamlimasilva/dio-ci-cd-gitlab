@@ -1,0 +1,46 @@
+image: node:20.19.0
+
+stages:
+  - test
+  - build
+  - deploy
+
+execute-tests:
+  stage: test
+  before_script:
+    - echo "Preparing to run tests..."
+    - chmod +x ./script.sh
+  script:
+    - echo "Running script.sh..."
+    - ./script.sh
+  after_script:
+    - echo "Tests completed."
+
+create-image:
+  stage: build
+  before_script:
+    - echo "Preparing to create image..."
+  script:
+    - echo "Creating image..."
+  after_script:
+    - echo "Image creation completed."
+
+push-image:
+  needs:
+    - create-image
+  stage: build
+  before_script:
+    - echo "Preparing to push image..."
+  script:
+    - echo "Pushing image..."
+  after_script:
+    - echo "Image push completed."
+
+kubernetes-deploy:
+  stage: deploy
+  before_script:
+    - echo "Preparing to deploy to Kubernetes..."
+  script:
+    - echo "Deploying to Kubernetes..."
+  after_script:
+    - echo "Kubernetes deployment completed."
