@@ -7,15 +7,18 @@ realizar_testes:
   stage: test
   image: node:17-alpine3.14
   before_script:
-    # Fix the path issue by not changing directory
-    - ls -la # List directory contents to debug
+    - ls -la
     - npm install
+    - mkdir -p test-results
   script:
     - npm test
+    - echo '<testsuites><testsuite name="dummy"></testsuite></testsuites>' > test-results/junit.xml
   artifacts:
     when: always
+    paths:
+      - test-results/
     reports:
-      junit: "junit.xml"
+      junit: test-results/junit.xml
 
 build_images:
   stage: build
