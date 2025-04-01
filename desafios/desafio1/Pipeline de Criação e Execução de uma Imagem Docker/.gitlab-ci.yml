@@ -1,0 +1,21 @@
+stages:
+  - build
+  - deploy
+
+create:
+  stage: build
+  tags:
+    - gcp
+  script:
+    - cd "desafios/desafio1/Pipeline de Criação e Execução de uma Imagem Docker"
+    - docker build -t williamlimasilva/gcp-runner-challenge-alpha:1.0 app/.
+    - docker push williamlimasilva/gcp-runner-challenge-alpha:1.0
+
+execute:
+  stage: deploy
+  needs:
+    - create
+  tags:
+    - gcp
+  script:
+    - docker run -dti --name web-server-alpha -p 8080:8080 williamlimasilva/gcp-runner-challenge-alpha:1.0
