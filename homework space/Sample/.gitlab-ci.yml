@@ -10,10 +10,10 @@ execute-tests:
   before_script:
     - echo "Preparing to run tests..."
     - chmod +x .gitlab-ci.yml
-    - chmod +x /homework\ space/Sample/.gitlab-ci.yml
+    - chmod +x homework\ space/Sample/.gitlab-ci.yml
   script:
     - echo "Running script.sh..."
-    - bash "/homework\ space/Sample/script.sh"
+    - bash "homework\ space/Sample/script.sh"
   after_script:
     - echo "Tests completed."
 
