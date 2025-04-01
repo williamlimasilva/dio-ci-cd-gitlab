@@ -18,4 +18,6 @@ execute_images:
   tags:
     - gcp
   script:
+    - docker stop web-server || true
+    - docker rm web-server || true
     - docker run -dti --name web-server -p 80:80 williamlimasilva/gcp-runner:1.0
