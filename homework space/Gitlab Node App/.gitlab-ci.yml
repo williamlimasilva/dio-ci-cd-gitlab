@@ -14,7 +14,7 @@ realizar_testes:
   artifacts:
     when: always
     reports:
-      junit: app/junit.xml
+      junit: "homework space/Gitlab Node App/app/junit.xml"
 
 build_images:
   stage: build
