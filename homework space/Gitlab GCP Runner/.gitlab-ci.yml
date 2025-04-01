@@ -7,6 +7,7 @@ create_images:
   tags:
     - gcp
   script:
+    - cd "homework space/Gitlab GCP Runner"
     - docker build -t williamlimasilva/gcp-runner:1.0 app/.
     - docker push williamlimasilva/gcp-runner:1.0
 
