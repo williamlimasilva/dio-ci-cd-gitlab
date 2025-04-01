@@ -1,6 +1,6 @@
 FROM httpd:latest
 WORKDIR /usr/local/apache2/htdocs/
 COPY . /usr/local/apache2/htdocs/
-RUN echo "Listen 8080" > /usr/local/apache2/conf/httpd.conf
-EXPOSE 8080
+RUN echo "Listen 80" > /usr/local/apache2/conf/httpd.conf
+EXPOSE 80
 CMD ["httpd-foreground"]
