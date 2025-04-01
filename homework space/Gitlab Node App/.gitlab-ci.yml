@@ -36,9 +36,25 @@ build_images:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+    - ls -la
     - cd "homework space/Gitlab Node App" || echo "Directory not found"
+    - ls -la
   script:
-    - docker build -t williamlimasilva/gitlab-cicd-node:1.0 -f dockerfile .
+    # Print directory structure for debugging
+    - ls -la ./app || echo "No app directory"
+    - ls -R || echo "Could not list recursively"
+    # Create a temporary Dockerfile that points to the app subdirectory
+    - |
+      cat > Dockerfile.temp << 'EOL'
+      FROM node:16-alpine
+      WORKDIR /usr/src/app
+      COPY ./app/package*.json ./
+      RUN npm install
+      COPY ./app .
+      EXPOSE 3000
+      CMD ["npm", "start"]
+      EOL
+    - docker build -t williamlimasilva/gitlab-cicd-node:1.0 -f Dockerfile.temp .
     - docker push williamlimasilva/gitlab-cicd-node:1.0
 
 deploy_dev:
