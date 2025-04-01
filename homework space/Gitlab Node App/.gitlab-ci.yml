@@ -7,14 +7,15 @@ realizar_testes:
   stage: test
   image: node:17-alpine3.14
   before_script:
-    - cd app/
+    # Fix the path issue by not changing directory
+    - ls -la # List directory contents to debug
     - npm install
   script:
     - npm test
   artifacts:
     when: always
     reports:
-      junit: "homework space/Gitlab Node App/app/junit.xml"
+      junit: "junit.xml"
 
 build_images:
   stage: build
@@ -41,4 +42,7 @@ deploy_dev:
   tags:
     - gcp
   script:
+    - docker pull williamlimasilva/gitlab-cicd-node:1.0
+    - docker stop nodeapp || true
+    - docker rm nodeapp || true
     - docker run -d --name nodeapp -p 3000:3000 williamlimasilva/gitlab-cicd-node:1.0
