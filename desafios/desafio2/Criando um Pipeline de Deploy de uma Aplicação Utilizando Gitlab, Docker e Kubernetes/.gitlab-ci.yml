@@ -37,18 +37,18 @@ build_images:
   before_script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
     - ls -la
-    - cd "desafios/desafio2/Criando um Pipeline de Deploy de uma Aplicação Utilizando Gitlab, Docker e Kubernetes/app" || echo "Directory not found"
+    - cd "desafios/desafio2/Criando um Pipeline de Deploy de uma Aplicação Utilizando Gitlab, Docker e Kubernetes" || echo "Directory not found"
     - ls -la
   script:
     - ls -la ./app || echo "No app directory"
-    - ls -R || echo "Could not list recursively"
+    - ls -R ./app || echo "Could not list recursively"
     - |
       cat > Dockerfile.temp << 'EOL'
       FROM node:17-alpine3.14
       WORKDIR /usr/src/app
       COPY ./app/package*.json ./
       RUN npm install
-      COPY ./app .
+      COPY ./app/ .
       EXPOSE 3000
       CMD ["npm", "start"]
       EOL
