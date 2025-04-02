@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy_gcp
+
+build_images:
+  stage: build
+  image: docker:20.10.16
+
+  services:
+    - docker:20.10.16-dind
+
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+
+  script:
+    - cd ./app
+    - docker build -t williamlimasilva/gcp-bastion-alpha:1.0 app/.
+    - docker push williamlimasilva/gcp-bastion-alpha:1.0
+
+deploy_gcp:
+  stage: deploy_gcp
+
+  before_script:
+    - chmod 400 $SSH_KEY
+
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY gcp@$SSH_SERVER "sudo rm -Rf ./ci-cd-com-gitlab/ && sudo git clone https://gitlab.com/digital-innovation-one-courses/ci-cd-com-gitlab.git && cd "ci-cd-com-gitlab/homework space/Gitlab Bastion App/" && sudo chmod +x ./script.sh && ./script.sh"

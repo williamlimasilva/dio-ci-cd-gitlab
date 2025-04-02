@@ -5,6 +5,7 @@ stages:
 
 include:
   - local: "desafios/desafio1/Pipeline de Criação e Execução de uma Imagem Docker/.gitlab-ci.yml"
+  # - local: "homework space/Gitlab Bastion App/.gitlab-ci.yml"
+  # - local: "homework space/Gitlab GCP Runner/.gitlab-ci.yml"
   - local: "homework space/Gitlab Node App/.gitlab-ci.yml"
   # - local: "homework space/Sample/.gitlab-ci.yml"
-  # - local: "homework space/Gitlab GCP Runner/.gitlab-ci.yml"
